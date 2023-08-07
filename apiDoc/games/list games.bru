@@ -1,0 +1,14 @@
+meta {
+  name: list games
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/games
+  body: none
+}
+
+body:multipart-form {
+  disks: 10
+}

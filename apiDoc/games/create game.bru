@@ -1,0 +1,14 @@
+meta {
+  name: create game
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/games
+  body: json
+}
+
+body:json {
+  {"disks":10}
+}
