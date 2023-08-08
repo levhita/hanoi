@@ -15,12 +15,12 @@ import {
 
 const colors = [
   red[500],
-  pink[500],
   deepPurple[500],
-  blue[500],
+  pink[500],
   teal[500],
-  lightGreen[500],
+  blue[500],
   amber[500],
+  lightGreen[500],
   orange[500],
 ];
 
@@ -31,7 +31,7 @@ function Disk({ number }) {
     <Box
       sx={{
         backgroundColor: color,
-        width: `${number + 1}em`,
+        width: `${number + 1 - number / 2}em`,
         height: "1.5em",
         textAlign: "center",
       }}
