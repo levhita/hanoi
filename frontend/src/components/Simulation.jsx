@@ -1,23 +1,40 @@
 import React from "react";
-import { Stack, Grid, Box } from "@mui/material/";
+import { Stack, Grid } from "@mui/material/";
+import Disk from "./Disk";
+const game = { a: [1, 2, 3, 4, 5], b: [3, 4], c: [3, 4] };
 
 export default function Simulation() {
   return (
-    <Grid container spacing={5}>
-      <Stack item sx={{ flexGrow: 1 }}>
-        <Box>
-          <h1>A</h1>
-        </Box>
+    <Grid container>
+      <Stack
+        item
+        spacing={0.5}
+        sx={{ flexGrow: 1, justifyContent: "flex-end", alignItems: "center" }}
+        xs={4}
+      >
+        {game.a.map((number) => (
+          <Disk key={number} number={number} />
+        ))}
       </Stack>
-      <Stack item sx={{ flexGrow: 1 }}>
-        <Box>
-          <h1>B</h1>
-        </Box>
+      <Stack
+        item
+        spacing={0.5}
+        sx={{ flexGrow: 1, justifyContent: "flex-end", alignItems: "center" }}
+        xs={4}
+      >
+        {game.b.map((number) => (
+          <Disk key={number} number={number} />
+        ))}
       </Stack>
-      <Stack item sx={{ flexGrow: 1 }}>
-        <Box>
-          <h1>C</h1>
-        </Box>
+      <Stack
+        item
+        spacing={0.5}
+        sx={{ flexGrow: 1, justifyContent: "flex-end", alignItems: "center" }}
+        xs={4}
+      >
+        {game.c.map((number) => (
+          <Disk key={number} number={number} />
+        ))}
       </Stack>
     </Grid>
   );
