@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./app.js",
-    "build:digitalocean": "cd frontend && npm ci && npm run build"
+    "build:digitalocean": "cd ./frontend/ && npm install --production=false && npm run build && npm ci"
   },
   "dependencies": {
     "express": "^4.18.2"
