@@ -5,7 +5,19 @@ const port = process.env.PORT || 3000
 // Route for React App
 app.use(express.static('./frontend/build/'))
 
-// Route for API
-app.get('/api/', (req, res) => res.send('you are viewing the api'))
+// Accept raw json
+app.use(express.json());
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+// Route for API
+app.get('/api/solve', (req, res) => res.json({
+    time: '32443',
+    steps: [],
+}))
+
+app.get('/api/solve-custom', (req, res) => res.json({
+    time: '32443',
+    steps: [],
+}))
+
+app.listen(port, () => console.log(`Hanoi app listening on port ${port}!`))
+
