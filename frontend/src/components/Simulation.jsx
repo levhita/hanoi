@@ -6,19 +6,21 @@ import Tower from "./Tower";
 
 function Simulation({ game, setGame }) {
   const [selectedTower, setSelectedTower] = React.useState("");
+  const [invalidTower, setInvalidTower] = React.useState("");
 
   function handleClick(tower) {
     if (selectedTower === "") {
-      console.log(tower, game[tower]);
       if (game[tower].length > 0) {
         setSelectedTower(tower);
       } else {
-        console.log("cant do");
+        setInvalidTower(tower);
+        setTimeout(() => setInvalidTower(""), 500);
         return;
       }
     } else {
       if (game[tower].length > 0 && game[tower][0] < game[selectedTower][0]) {
-        console.log("cant do");
+        setInvalidTower(tower);
+        setTimeout(() => setInvalidTower(""), 500);
         return;
       }
       const newGame = _.cloneDeep(game);
@@ -41,16 +43,19 @@ function Simulation({ game, setGame }) {
       <Tower
         disks={game.a}
         selected={selectedTower === "a"}
+        isInvalid={invalidTower === "a"}
         handleClick={() => handleClick("a")}
       />
       <Tower
         disks={game.b}
         selected={selectedTower === "b"}
+        isInvalid={invalidTower === "b"}
         handleClick={() => handleClick("b")}
       />
       <Tower
         disks={game.c}
         selected={selectedTower === "c"}
+        isInvalid={invalidTower === "c"}
         handleClick={() => handleClick("c")}
       />
     </Stack>

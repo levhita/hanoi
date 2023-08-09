@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { Stack, Box } from "@mui/material/";
 import { brown } from "@mui/material/colors";
 import Disk from "./Disk";
-import { grey } from "@mui/material/colors";
+import { grey, red } from "@mui/material/colors";
 
-function Tower({ disks, selected, handleClick }) {
+function Tower({ disks, selected, handleClick, isInvalid }) {
   return (
     <Stack
       xs={4}
@@ -17,9 +17,10 @@ function Tower({ disks, selected, handleClick }) {
         paddingBottom: "1.5em",
         width: "33%",
         ["&:hover"]: {
-          backgroundColor: grey[300],
+          backgroundColor: isInvalid ? red[200] : grey[300],
           cursor: "pointer",
         },
+        transition: "background-color 0.1s",
       }}
       onClick={handleClick}
     >
@@ -60,6 +61,7 @@ Tower.propTypes = {
   disks: PropTypes.arrayOf(PropTypes.number).isRequired,
   selected: PropTypes.bool.isRequired,
   handleClick: PropTypes.func.isRequired,
+  isInvalid: PropTypes.bool.isRequired,
 };
 
 export default Tower;
