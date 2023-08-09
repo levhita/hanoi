@@ -5,7 +5,7 @@ import Controls from "./Controls";
 
 export default function Simulation() {
   return (
-    <Box sx={{ flexGrow: 1, marginBottom: "1em" }}>
+    <Box sx={{ marginBottom: "1em" }}>
       <AppBar position="static">
         <Toolbar>
           <IconButton

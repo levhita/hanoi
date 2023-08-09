@@ -1,48 +1,20 @@
 import React from "react";
-import { Stack, Grid } from "@mui/material/";
-import Disk from "./Disk";
+// import PropTypes from "prop-types";
+import { Stack } from "@mui/material/";
+import Tower from "./Tower";
+
 const game = {
-  a: [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-    50,
-  ],
-  b: [3, 48],
-  c: [3, 49],
+  a: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+  b: [21],
+  c: [12],
 };
 
 export default function Simulation() {
   return (
-    <Grid container>
-      <Stack
-        item
-        spacing={0.5}
-        sx={{ flexGrow: 1, justifyContent: "flex-end", alignItems: "center" }}
-        xs={4}
-      >
-        {game.a.map((number) => (
-          <Disk key={number} number={number} />
-        ))}
-      </Stack>
-      <Stack
-        item
-        spacing={0.5}
-        sx={{ flexGrow: 1, justifyContent: "flex-end", alignItems: "center" }}
-        xs={4}
-      >
-        {game.b.map((number) => (
-          <Disk key={number} number={number} />
-        ))}
-      </Stack>
-      <Stack
-        item
-        spacing={0.5}
-        sx={{ flexGrow: 1, justifyContent: "flex-end", alignItems: "center" }}
-        xs={4}
-      >
-        {game.c.map((number) => (
-          <Disk key={number} number={number} />
-        ))}
-      </Stack>
-    </Grid>
+    <Stack direction="row" sx={{ height: "100%", paddingBottom: "1em" }}>
+      <Tower disks={game.a} />
+      <Tower disks={game.b} />
+      <Tower disks={game.c} />
+    </Stack>
   );
 }

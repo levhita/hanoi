@@ -1,5 +1,4 @@
 import React from "react";
-import { Box, Typography } from "@mui/material/";
 import PropTypes from "prop-types";
 import {
   grey,
@@ -12,6 +11,7 @@ import {
   amber,
   orange,
 } from "@mui/material/colors";
+import { Box, Typography } from "@mui/material/";
 
 const colors = [
   red[500],
@@ -25,7 +25,6 @@ const colors = [
 ];
 
 function Disk({ number }) {
-  console.log(number);
   const color = colors[number % colors.length];
   return (
     <Box
@@ -34,6 +33,7 @@ function Disk({ number }) {
         width: `${number + 1 - number / 2}em`,
         height: "1.5em",
         textAlign: "center",
+        borderRadius: "0.5em",
       }}
     >
       <Typography sx={{ color: grey[50] }}>{number}</Typography>
@@ -44,4 +44,5 @@ function Disk({ number }) {
 Disk.propTypes = {
   number: PropTypes.number.isRequired,
 };
+
 export default Disk;
