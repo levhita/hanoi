@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Stack, Box } from "@mui/material/";
 import { brown } from "@mui/material/colors";
 import Disk from "./Disk";
+import { grey } from "@mui/material/colors";
 
 function Tower({ disks, selected, handleClick }) {
   return (
@@ -14,18 +15,23 @@ function Tower({ disks, selected, handleClick }) {
         justifyContent: "flex-end",
         alignItems: "center",
         position: "relative",
-        paddingBottom: "1.25em",
+        paddingBottom: "1.5em",
+        width: "33%",
+        ["&:hover"]: {
+          backgroundColor: grey[300],
+          cursor: "pointer",
+        },
       }}
       onClick={handleClick}
     >
       <Box
         sx={{
           position: "absolute",
-          height: "90%",
+          height: `${disks.length * 1.75 + 2}em`,
           width: "0.75em",
           bottom: "0",
           backgroundColor: brown[500],
-          zIndex: "-1",
+          zIndex: "0",
           borderRadius: "0.5em",
         }}
       ></Box>
@@ -33,11 +39,11 @@ function Tower({ disks, selected, handleClick }) {
         sx={{
           position: "absolute",
           bottom: "0",
-          height: "1em",
-          width: "90%",
+          height: "1.5em",
+          width: "60%",
           backgroundColor: brown[500],
-          zIndex: "-1",
-          borderRadius: "0.5em",
+          zIndex: "0",
+          borderRadius: "0.75em",
         }}
       ></Box>
       {disks.map((number, index) => (

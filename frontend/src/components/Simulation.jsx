@@ -33,7 +33,11 @@ export default function Simulation() {
   }
 
   return (
-    <Stack direction="row" sx={{ height: "100%", paddingBottom: "1em" }}>
+    <Stack
+      direction="row"
+      flexWrap="nowrap"
+      sx={{ height: "100%", paddingBottom: "1em" }}
+    >
       <Tower
         disks={game.a}
         selected={selectedTower === "a"}

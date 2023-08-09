@@ -36,7 +36,7 @@ function Disk({ number, selected }) {
         borderRadius: "0.5em",
         marginBottom: "0.25em",
         transition: "transform, 0.1s",
-        transform: selected ? "translate(0px, -5em)" : "translate(0px, 0px)",
+        transform: selected ? "translate(0px, -3em)" : "translate(0px, 0px)",
       }}
     >
       <Typography sx={{ color: grey[50] }}>{number}</Typography>
