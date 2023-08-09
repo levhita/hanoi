@@ -27,12 +27,12 @@ function Tower({ disks, selected, handleClick }) {
       <Box
         sx={{
           position: "absolute",
-          height: `${disks.length * 1.75 + 2}em`,
-          width: "0.75em",
+          height: `${(disks.length + 1) * 1.75 + 2}em`,
+          width: "1em",
           bottom: "0",
           backgroundColor: brown[500],
           zIndex: "0",
-          borderRadius: "0.5em",
+          borderRadius: "0.25em",
         }}
       ></Box>
       <Box
@@ -43,7 +43,7 @@ function Tower({ disks, selected, handleClick }) {
           width: "60%",
           backgroundColor: brown[500],
           zIndex: "0",
-          borderRadius: "0.75em",
+          borderRadius: "0.5em",
         }}
       ></Box>
       {disks.map((number, index) => (

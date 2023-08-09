@@ -1,17 +1,17 @@
-import { React, useState } from "react";
+import React from "react";
 import _ from "lodash";
 // import PropTypes from "prop-types";
 import { Stack } from "@mui/material/";
 import Tower from "./Tower";
 
 export default function Simulation() {
-  const [game, setGame] = useState({
-    a: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    b: [21],
-    c: [12],
+  const [game, setGame] = React.useState({
+    a: [1, 2, 3, 4, 5],
+    b: [],
+    c: [],
   });
 
-  const [selectedTower, setSelectedTower] = useState("");
+  const [selectedTower, setSelectedTower] = React.useState("");
 
   function handleClick(tower) {
     if (selectedTower === "") {

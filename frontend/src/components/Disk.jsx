@@ -30,13 +30,13 @@ function Disk({ number, selected }) {
     <Box
       sx={{
         backgroundColor: color,
-        width: `${number + 1 - number / 2}em`,
+        width: `${number + 2 - number / 2}em`,
         height: "1.5em",
         textAlign: "center",
-        borderRadius: "0.5em",
+        borderRadius: "0.65em",
         marginBottom: "0.25em",
         transition: "transform, 0.1s",
-        transform: selected ? "translate(0px, -3em)" : "translate(0px, 0px)",
+        transform: selected ? "translate(0px, -4em)" : "translate(0px, 0px)",
       }}
     >
       <Typography sx={{ color: grey[50] }}>{number}</Typography>
