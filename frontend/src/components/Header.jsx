@@ -1,9 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Box, AppBar, Toolbar, IconButton, Typography } from "@mui/material/";
 import MenuIcon from "@mui/icons-material/Menu";
 import Controls from "./Controls";
 
-export default function Simulation() {
+function Header({ newGame }) {
   return (
     <Box sx={{ marginBottom: "1em" }}>
       <AppBar position="static">
@@ -20,9 +21,13 @@ export default function Simulation() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Hanoi
           </Typography>
-          <Controls />
+          <Controls newGame={newGame} />
         </Toolbar>
       </AppBar>
     </Box>
   );
 }
+Header.propTypes = {
+  newGame: PropTypes.func.isRequired,
+};
+export default Header;

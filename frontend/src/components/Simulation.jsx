@@ -1,16 +1,10 @@
 import React from "react";
 import _ from "lodash";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import { Stack } from "@mui/material/";
 import Tower from "./Tower";
 
-export default function Simulation() {
-  const [game, setGame] = React.useState({
-    a: [1, 2, 3, 4, 5],
-    b: [],
-    c: [],
-  });
-
+function Simulation({ game, setGame }) {
   const [selectedTower, setSelectedTower] = React.useState("");
 
   function handleClick(tower) {
@@ -62,3 +56,10 @@ export default function Simulation() {
     </Stack>
   );
 }
+
+Simulation.propTypes = {
+  game: PropTypes.array.isRequired,
+  setGame: PropTypes.func.isRequired,
+};
+
+export default Simulation;

@@ -1,21 +1,22 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { Button, Typography, Paper } from "@mui/material/";
 import NewGameDialog from "./NewGameDialog";
-import { Button, Typography } from "@mui/material/";
 
-export default function Controls() {
+function Controls({ newGame }) {
   const [type, setType] = React.useState("regular");
   const [open, setOpen] = React.useState(false);
-  const [movements, setMovements] = React.useState(5);
+  const [disks, setdisks] = React.useState(5);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
-  const handleCreate = (movements, type) => {
+  const handleCreate = (disks, type) => {
     setOpen(false);
-    setMovements(movements);
+    setdisks(parseInt(disks));
     setType(type);
-    console.log("signal up new game", { movements, type });
+    newGame(parseInt(disks), type);
   };
 
   const handleCancel = () => {
@@ -28,17 +29,27 @@ export default function Controls() {
       <Button color="inherit" onClick={handleClickOpen}>
         New Game
       </Button>
-      <Typography>{movements}</Typography>
-      <Typography sx={{ marginLeft: "1em", textTransform: "capitalize" }}>
-        {type}
-      </Typography>
+      <Paper sx={{ padding: "0.5em" }}>
+        <Typography variant="caption">{disks}</Typography>
+        <Typography
+          variant="caption"
+          sx={{ marginLeft: "1em", textTransform: "uppercase" }}
+        >
+          {type}
+        </Typography>
+      </Paper>
       <NewGameDialog
         open={open}
         onCreate={handleCreate}
         onCancel={handleCancel}
-        movements={movements}
+        disks={disks}
         type={type}
       />
     </>
   );
 }
+
+Controls.propTypes = {
+  newGame: PropTypes.func.isRequired,
+};
+export default Controls;

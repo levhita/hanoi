@@ -8,20 +8,21 @@ import {
   FormGroup,
   FormControlLabel,
   Switch,
+  Stack,
 } from "@mui/material/";
 
 function NewGameDialog(props) {
-  const { onCreate, onCancel, open, movements, type } = props;
-  const [newMovements, setNewMovements] = React.useState(movements);
+  const { onCreate, onCancel, open, disks, type } = props;
+  const [newDisks, setNewDisks] = React.useState(disks);
   const [newType, setNewType] = React.useState(type);
 
   const handleCreate = () => {
-    onCreate(newMovements, newType);
+    onCreate(newDisks, newType);
   };
 
   const handleCancel = () => {
     // Reset to default values
-    setNewMovements(movements);
+    setNewDisks(disks);
     setNewType(type);
     onCancel();
   };
@@ -33,29 +34,31 @@ function NewGameDialog(props) {
   return (
     <Dialog onClose={handleCancel} open={open}>
       <DialogTitle>New Game</DialogTitle>
-      <FormGroup>
-        <FormControlLabel
-          control={
-            <Switch
-              checked={newType !== "regular"}
-              onChange={handleTypeChange}
-              inputProps={{ "aria-label": "controlled" }}
-            />
-          }
-          label="Random"
+      <Stack spacing="0.5em" sx={{ margin: "0em 1em 1em 1em" }}>
+        <TextField
+          label="Disks"
+          value={newDisks}
+          onChange={(event) => {
+            setNewDisks(event.target.value);
+          }}
         />
-      </FormGroup>
-      <TextField
-        label="movements"
-        value={newMovements}
-        onChange={(event) => {
-          setNewMovements(event.target.value);
-        }}
-      />
-      <Button onClick={handleCancel}>Cancel</Button>
-      <Button variant="contained" onClick={handleCreate}>
-        Create
-      </Button>
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={newType !== "regular"}
+                onChange={handleTypeChange}
+                inputProps={{ "aria-label": "controlled" }}
+              />
+            }
+            label="Random"
+          />
+        </FormGroup>
+        <Button onClick={handleCancel}>Cancel</Button>
+        <Button variant="contained" onClick={handleCreate}>
+          Create
+        </Button>
+      </Stack>
     </Dialog>
   );
 }
@@ -64,7 +67,7 @@ NewGameDialog.propTypes = {
   onCreate: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
-  movements: PropTypes.number.isRequired,
+  disks: PropTypes.number.isRequired,
   type: PropTypes.string.isRequired,
 };
 
