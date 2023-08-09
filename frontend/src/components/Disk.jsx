@@ -24,7 +24,7 @@ const colors = [
   orange[500],
 ];
 
-function Disk({ number }) {
+function Disk({ number, selected }) {
   const color = colors[number % colors.length];
   return (
     <Box
@@ -34,6 +34,9 @@ function Disk({ number }) {
         height: "1.5em",
         textAlign: "center",
         borderRadius: "0.5em",
+        marginBottom: "0.25em",
+        transition: "transform, 0.1s",
+        transform: selected ? "translate(0px, -5em)" : "translate(0px, 0px)",
       }}
     >
       <Typography sx={{ color: grey[50] }}>{number}</Typography>
@@ -43,6 +46,7 @@ function Disk({ number }) {
 
 Disk.propTypes = {
   number: PropTypes.number.isRequired,
+  selected: PropTypes.bool.isRequired,
 };
 
 export default Disk;

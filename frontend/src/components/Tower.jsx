@@ -4,11 +4,10 @@ import { Stack, Box } from "@mui/material/";
 import { brown } from "@mui/material/colors";
 import Disk from "./Disk";
 
-function Tower({ disks }) {
+function Tower({ disks, selected, handleClick }) {
   return (
     <Stack
       item
-      spacing={0.5}
       xs={4}
       sx={{
         flexGrow: 1,
@@ -17,11 +16,12 @@ function Tower({ disks }) {
         position: "relative",
         paddingBottom: "1.25em",
       }}
+      onClick={handleClick}
     >
       <Box
         sx={{
           position: "absolute",
-          height: "400px",
+          height: "90%",
           width: "0.75em",
           bottom: "0",
           backgroundColor: brown[500],
@@ -40,8 +40,12 @@ function Tower({ disks }) {
           borderRadius: "0.5em",
         }}
       ></Box>
-      {disks.map((number) => (
-        <Disk key={number} number={number} />
+      {disks.map((number, index) => (
+        <Disk
+          key={number}
+          number={number}
+          selected={index === 0 && selected ? true : false}
+        />
       ))}
     </Stack>
   );
@@ -49,6 +53,8 @@ function Tower({ disks }) {
 
 Tower.propTypes = {
   disks: PropTypes.arrayOf(PropTypes.number).isRequired,
+  selected: PropTypes.bool.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
 export default Tower;
