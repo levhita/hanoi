@@ -15,9 +15,15 @@ export default function Simulation() {
 
   function handleClick(tower) {
     if (selectedTower === "") {
-      setSelectedTower(tower);
+      console.log(tower, game[tower]);
+      if (game[tower].length > 0) {
+        setSelectedTower(tower);
+      } else {
+        console.log("cant do");
+        return;
+      }
     } else {
-      if (game[tower].length >= 0 && game[tower][0] < game[selectedTower][0]) {
+      if (game[tower].length > 0 && game[tower][0] < game[selectedTower][0]) {
         console.log("cant do");
         return;
       }

@@ -8,7 +8,6 @@ import { grey } from "@mui/material/colors";
 function Tower({ disks, selected, handleClick }) {
   return (
     <Stack
-      item
       xs={4}
       sx={{
         flexGrow: 1,
