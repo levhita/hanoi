@@ -4,7 +4,6 @@ import { Button, Typography, Paper } from "@mui/material/";
 import NewGameDialog from "./NewGameDialog";
 
 function Controls({ newGame, handleSolve }) {
-  const [type, setType] = React.useState("regular");
   const [open, setOpen] = React.useState(false);
   const [disks, setdisks] = React.useState(5);
 
@@ -12,11 +11,10 @@ function Controls({ newGame, handleSolve }) {
     setOpen(true);
   };
 
-  const handleCreate = (disks, type) => {
+  const handleCreate = (disks) => {
     setOpen(false);
     setdisks(disks);
-    setType(type);
-    newGame(disks, type);
+    newGame(disks);
   };
 
   const handleCancel = () => {
@@ -32,16 +30,13 @@ function Controls({ newGame, handleSolve }) {
         New Game
       </Button>
       <Paper sx={{ padding: "0.5em" }}>
-        <Typography variant="subtitle1">
-          {disks} {type}
-        </Typography>
+        <Typography variant="subtitle1">{disks} disks</Typography>
       </Paper>
       <NewGameDialog
         open={open}
         onCreate={handleCreate}
         onCancel={handleCancel}
         disks={disks}
-        type={type}
       />
     </>
   );

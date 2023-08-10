@@ -17,6 +17,8 @@ export default function Game() {
   const [currentStep, setCurrentStep] = React.useState(0);
   //const [playInterval, setPlayInterval] = React.useState(0);
 
+  // For large operations useMemo can cache results
+  // will re-run if solution change
   const steps = React.useMemo(() => {
     return splitPairs(solution);
   }, [solution]);
@@ -32,27 +34,18 @@ export default function Game() {
   const handleNext = () => {
     setCurrentStep(currentStep + 1);
     handleStep(steps[currentStep]);
-    console.log(currentStep + 1);
   };
-  function newGame(disks, type) {
+
+  const newGame = (disks) => {
     const newGame = { a: [], b: [], c: [] };
-    const sequence = _.range(1, disks + 1, 1);
-    if (type === "regular") {
-      newGame.a = sequence;
-    } else {
-      // Put the disk from lower to higher into a random peg
-      sequence.forEach((e) =>
-        newGame[String.fromCharCode(_.random(97, 99))].push(e)
-      );
-    }
+    newGame.a = _.range(1, disks + 1, 1);
     setGame(newGame);
-  }
+  };
 
   const handleStep = ({ from, to }) => {
     const newGame = _.cloneDeep(game);
     newGame[to].unshift(newGame[from].shift(from));
     setGame(newGame);
-    console.log(newGame);
   };
 
   const handleSolve = () => {
@@ -66,12 +59,12 @@ export default function Game() {
       .then((response) => response.json())
       .then((data) => {
         const { steps, time } = { ...data };
-        console.log({ steps, time });
-        if (steps > 1000) {
+        if (steps > 10000) {
           alert("to many steps to reproduce");
           return;
         }
         setSolution(data.solution);
+        setCurrentStep(0);
       });
   };
 
