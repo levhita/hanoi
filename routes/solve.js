@@ -11,7 +11,7 @@ function solve(req, res) {
         'Transfer-Encoding': 'chunked'
     })
     res.write('{"solution":"');
-    const {steps, time} = iterative(req.body, res)
+    const {steps, time} = recursive(req.body, res)
     res.write('", "steps":'+steps+',"time":'+time+'}')
     res.end();
 }
