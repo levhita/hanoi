@@ -8,28 +8,9 @@ import {
   Box,
   Button,
 } from "@mui/material/";
+import { grey, blue } from "@mui/material/colors";
 
-function Solution({ solution, handleStep }) {
-  const [currentStep, setCurrentStep] = React.useState(0);
-  const [playInterval, setPlayInterval] = React.useState(0);
-
-  const steps = React.useMemo(() => {
-    return splitPairs(solution);
-  }, [solution]);
-
-  const handleStop = () => {
-    clearInterval(playInterval);
-  };
-  const handlePlay = () => {
-    clearInterval(playInterval);
-    setPlayInterval(setInterval(() => handleNext(), 1000));
-  };
-  const handleNext = () => {
-    setCurrentStep(currentStep + 1);
-    console.log(currentStep + 1);
-    handleStep(steps[currentStep]);
-  };
-
+function Solution({ steps, currentStep, handleStop, handlePlay, handleNext }) {
   return (
     <Box
       sx={{
@@ -42,7 +23,9 @@ function Solution({ solution, handleStep }) {
 
       <Button onClick={handleStop}>Stop</Button>
       <Button onClick={handlePlay}>Play</Button>
-      <Button onClick={handleNext}>Next</Button>
+      <Button onClick={handleNext} disabled={currentStep == steps.length}>
+        Next
+      </Button>
 
       <List
         sx={{
@@ -57,7 +40,11 @@ function Solution({ solution, handleStep }) {
           return (
             <ListItem disablePadding key={i + step}>
               <ListItemText
-                sx={{ backgroundColor: currentStep === i ? "#DDD" : "#FFF" }}
+                sx={{
+                  backgroundColor:
+                    currentStep === i ? blue[500] : "rgba(0,0,0,0)",
+                  color: currentStep === i ? grey[50] : grey[900],
+                }}
                 primary={`${i + 1}.- ${step.from.toUpperCase()} →
               ${step.to.toUpperCase()}`}
               />
@@ -69,17 +56,13 @@ function Solution({ solution, handleStep }) {
   );
 }
 
-const splitPairs = (input) => {
-  if (!input) return [];
-  let pairs = [];
-  for (let i = 0; i < input.length; i += 2) {
-    pairs.push({ from: input[i], to: input[i + 1] });
-  }
-  return pairs;
-};
-
 Solution.propTypes = {
-  solution: PropTypes.string.isRequired,
+  steps: PropTypes.array.isRequired,
+  currentStep: PropTypes.number.isRequired,
+  handleStep: PropTypes.func.isRequired,
+  handleStop: PropTypes.func.isRequired,
+  handlePlay: PropTypes.func.isRequired,
+  handleNext: PropTypes.func.isRequired,
 };
 
 export default Solution;

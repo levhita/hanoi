@@ -13,10 +13,27 @@ export default function Game() {
     b: [],
     c: [],
   });
-  const [solution, setSolution] = React.useState(
-    "acabcbacbabcacabcbcabacbacabcbacbabcacbacbcababcacabcbacbabcacacabcbacbabcacabcbcabacbacabcbacbabcacbacbcababcacabcbacbabcac"
-  );
+  const [solution, setSolution] = React.useState("");
+  const [currentStep, setCurrentStep] = React.useState(0);
+  //const [playInterval, setPlayInterval] = React.useState(0);
 
+  const steps = React.useMemo(() => {
+    return splitPairs(solution);
+  }, [solution]);
+
+  const handleStop = () => {
+    setCurrentStep(0);
+    // clearInterval(playInterval);
+  };
+  const handlePlay = () => {
+    // clearInterval(playInterval);
+    // setPlayInterval(setInterval(() => handleNext(), 1000));
+  };
+  const handleNext = () => {
+    setCurrentStep(currentStep + 1);
+    handleStep(steps[currentStep]);
+    console.log(currentStep + 1);
+  };
   function newGame(disks, type) {
     const newGame = { a: [], b: [], c: [] };
     const sequence = _.range(1, disks + 1, 1);
@@ -30,7 +47,13 @@ export default function Game() {
     }
     setGame(newGame);
   }
-  const handleStep = ({ from, to }) => {};
+
+  const handleStep = ({ from, to }) => {
+    const newGame = _.cloneDeep(game);
+    newGame[to].unshift(newGame[from].shift(from));
+    setGame(newGame);
+    console.log(newGame);
+  };
 
   const handleSolve = () => {
     fetch("http://localhost:3000/api/solve", {
@@ -56,7 +79,14 @@ export default function Game() {
     <>
       <Header newGame={newGame} handleSolve={handleSolve} />
       <Stack direction="row" height="100%">
-        <Solution solution={solution} handleStep={handleStep} />
+        <Solution
+          steps={steps}
+          currentStep={currentStep}
+          handleStep={handleStep}
+          handleStop={handleStop}
+          handlePlay={handlePlay}
+          handleNext={handleNext}
+        />
         <Simulation
           ref={simulationRef}
           game={game}
@@ -67,3 +97,12 @@ export default function Game() {
     </>
   );
 }
+
+const splitPairs = (input) => {
+  if (!input) return [];
+  let pairs = [];
+  for (let i = 0; i < input.length; i += 2) {
+    pairs.push({ from: input[i], to: input[i + 1] });
+  }
+  return pairs;
+};

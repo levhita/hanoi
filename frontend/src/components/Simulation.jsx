@@ -1,7 +1,7 @@
 import React from "react";
-import _ from "lodash";
 import PropTypes from "prop-types";
 import { Stack } from "@mui/material/";
+import _ from "lodash";
 import Tower from "./Tower";
 
 function Simulation({ game, setGame }) {
@@ -36,7 +36,7 @@ function Simulation({ game, setGame }) {
     }
   }
 
-  function makeMove(from, to) {
+  /*   function makeMove(from, to) {
     // Pull up the disk from "from"
     setSelectedTower(from);
     setTimeout(() => {
@@ -51,7 +51,7 @@ function Simulation({ game, setGame }) {
       //pull it down after a second
       setTimeout(() => setSelectedTower(""), 100);
     }, 100);
-  }
+  } */
 
   return (
     <Stack
