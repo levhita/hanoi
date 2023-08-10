@@ -4,7 +4,7 @@ import { Box, AppBar, Toolbar, IconButton, Typography } from "@mui/material/";
 import MenuIcon from "@mui/icons-material/Menu";
 import Controls from "./Controls";
 
-function Header({ newGame }) {
+function Header({ newGame, handleSolve }) {
   return (
     <Box sx={{ marginBottom: "1em" }}>
       <AppBar position="static">
@@ -21,7 +21,7 @@ function Header({ newGame }) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Hanoi
           </Typography>
-          <Controls newGame={newGame} />
+          <Controls newGame={newGame} handleSolve={handleSolve} />
         </Toolbar>
       </AppBar>
     </Box>
@@ -29,5 +29,6 @@ function Header({ newGame }) {
 }
 Header.propTypes = {
   newGame: PropTypes.func.isRequired,
+  handleSolve: PropTypes.func.isRequired,
 };
 export default Header;

@@ -24,9 +24,24 @@ export default function Game() {
     setGame(newGame);
   }
 
+  const handleSolve = () => {
+    fetch("http://localhost:3000/api/solve", {
+      method: "POST", // or 'PUT'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(game),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const { steps, optimal, time } = { ...data };
+        console.log({ steps, optimal, time });
+      });
+  };
+
   return (
     <>
-      <Header newGame={newGame} />
+      <Header newGame={newGame} handleSolve={handleSolve} />
       <Simulation
         item
         xs={8}

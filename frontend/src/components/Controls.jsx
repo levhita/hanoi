@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Button, Typography, Paper } from "@mui/material/";
 import NewGameDialog from "./NewGameDialog";
 
-function Controls({ newGame }) {
+function Controls({ newGame, handleSolve }) {
   const [type, setType] = React.useState("regular");
   const [open, setOpen] = React.useState(false);
   const [disks, setdisks] = React.useState(5);
@@ -14,9 +14,9 @@ function Controls({ newGame }) {
 
   const handleCreate = (disks, type) => {
     setOpen(false);
-    setdisks(parseInt(disks));
+    setdisks(disks);
     setType(type);
-    newGame(parseInt(disks), type);
+    newGame(disks, type);
   };
 
   const handleCancel = () => {
@@ -25,17 +25,15 @@ function Controls({ newGame }) {
 
   return (
     <>
-      <Button color="inherit">Solve</Button>
+      <Button color="inherit" onClick={handleSolve}>
+        Solve
+      </Button>
       <Button color="inherit" onClick={handleClickOpen}>
         New Game
       </Button>
       <Paper sx={{ padding: "0.5em" }}>
-        <Typography variant="caption">{disks}</Typography>
-        <Typography
-          variant="caption"
-          sx={{ marginLeft: "1em", textTransform: "uppercase" }}
-        >
-          {type}
+        <Typography variant="subtitle1">
+          {disks} {type}
         </Typography>
       </Paper>
       <NewGameDialog
@@ -51,5 +49,6 @@ function Controls({ newGame }) {
 
 Controls.propTypes = {
   newGame: PropTypes.func.isRequired,
+  handleSolve: PropTypes.func.isRequired,
 };
 export default Controls;

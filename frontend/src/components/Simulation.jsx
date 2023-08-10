@@ -13,12 +13,14 @@ function Simulation({ game, setGame }) {
       if (game[tower].length > 0) {
         setSelectedTower(tower);
       } else {
+        // Elaborated way to signal invalid move
         setInvalidTower(tower);
         setTimeout(() => setInvalidTower(""), 500);
         return;
       }
     } else {
       if (game[tower].length > 0 && game[tower][0] < game[selectedTower][0]) {
+        // Elaborated way to signal invalid move
         setInvalidTower(tower);
         setTimeout(() => setInvalidTower(""), 500);
         return;
@@ -63,7 +65,7 @@ function Simulation({ game, setGame }) {
 }
 
 Simulation.propTypes = {
-  game: PropTypes.array.isRequired,
+  game: PropTypes.object.isRequired,
   setGame: PropTypes.func.isRequired,
 };
 

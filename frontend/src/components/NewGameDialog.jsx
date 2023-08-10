@@ -17,7 +17,7 @@ function NewGameDialog(props) {
   const [newType, setNewType] = React.useState(type);
 
   const handleCreate = () => {
-    onCreate(newDisks, newType);
+    onCreate(parseInt(newDisks), newType);
   };
 
   const handleCancel = () => {
