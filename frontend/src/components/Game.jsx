@@ -42,6 +42,10 @@ export default function Game() {
     newGame.a = _.range(1, newDisks + 1, 1);
     setDisks(newDisks);
     setGame(newGame);
+    setSolution("");
+    setTime(0);
+    setTotalSteps(0);
+    setCurrentStep(0);
   };
 
   const handleStep = ({ from, to }) => {
