@@ -11,6 +11,7 @@ export default function Game() {
     b: [],
     c: [],
   });
+  const [disks, setDisks] = React.useState(5);
   const [solution, setSolution] = React.useState("");
   const [totalSteps, setTotalSteps] = React.useState(0);
   const [time, setTime] = React.useState(0);
@@ -36,9 +37,10 @@ export default function Game() {
     handleStep(steps[currentStep]);
   };
 
-  const newGame = (disks) => {
+  const newGame = (newDisks) => {
     const newGame = { a: [], b: [], c: [] };
-    newGame.a = _.range(1, disks + 1, 1);
+    newGame.a = _.range(1, newDisks + 1, 1);
+    setDisks(newDisks);
     setGame(newGame);
   };
 
@@ -58,6 +60,7 @@ export default function Game() {
     })
       .then((response) => response.json())
       .then((data) => {
+        newGame(disks);
         const { steps, time } = { ...data };
         setSolution(data.solution);
         setTime(time);

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button, Typography, Paper } from "@mui/material/";
+import { Button, Divider } from "@mui/material/";
 import NewGameDialog from "./NewGameDialog";
 
 function Controls({ newGame, handleSolve }) {
@@ -23,15 +23,17 @@ function Controls({ newGame, handleSolve }) {
 
   return (
     <>
-      <Button color="inherit" onClick={handleSolve}>
-        Solve
-      </Button>
       <Button color="inherit" onClick={handleClickOpen}>
         New Game
       </Button>
-      <Paper sx={{ padding: "0.5em" }}>
-        <Typography variant="subtitle1">{disks} disks</Typography>
-      </Paper>
+      <Divider
+        variant="middle"
+        orientation="vertical"
+        sx={{ padding: "1em 0em", borderColor: "rgba(255, 255, 255, 0.12)" }}
+      />
+      <Button color="inherit" onClick={handleSolve}>
+        Solve
+      </Button>
       <NewGameDialog
         open={open}
         onCreate={handleCreate}
