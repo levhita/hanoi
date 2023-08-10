@@ -36,11 +36,28 @@ function Simulation({ game, setGame }) {
     }
   }
 
+  function makeMove(from, to) {
+    // Pull up the disk from "from"
+    setSelectedTower(from);
+    setTimeout(() => {
+      const newGame = _.cloneDeep(game);
+      // remove disk from "from"
+      const disk = newGame[from].shift();
+      // and move it to "to"
+      newGame[to].unshift(disk);
+      // The tower must be in selected/pulled state
+      setSelectedTower(to);
+      setGame(newGame);
+      //pull it down after a second
+      setTimeout(() => setSelectedTower(""), 100);
+    }, 100);
+  }
+
   return (
     <Stack
       direction="row"
       flexWrap="nowrap"
-      sx={{ height: "100%", paddingBottom: "1em" }}
+      sx={{ height: "100%", paddingBottom: "1em", flexGrow: 1 }}
     >
       <Tower
         disks={game.a}
