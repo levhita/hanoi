@@ -1,16 +1,27 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {
-  List,
-  ListItem,
-  ListItemText,
-  Typography,
-  Box,
-  Button,
-} from "@mui/material/";
-import { grey, blue } from "@mui/material/colors";
+import { Typography, Box, IconButton, Stack } from "@mui/material/";
+import StopIcon from "@mui/icons-material/Stop";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import SkipNextIcon from "@mui/icons-material/SkipNext";
+import SolutionList from "./SolutionList";
 
-function Solution({ steps, currentStep, handleStop, handlePlay, handleNext }) {
+function Solution({
+  steps,
+  currentStep,
+  handleStop,
+  handlePlay,
+  handleNext,
+  time,
+  totalSteps,
+}) {
+  const totalStepsWithCommas = totalSteps
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const renderedSolutionList = React.useMemo(
+    () => <SolutionList steps={steps} />,
+    [steps]
+  );
   return (
     <Box
       sx={{
@@ -19,39 +30,30 @@ function Solution({ steps, currentStep, handleStop, handlePlay, handleNext }) {
         position: "relative",
       }}
     >
-      <Typography variant="h3">Steps</Typography>
-
-      <Button onClick={handleStop}>Stop</Button>
-      <Button onClick={handlePlay}>Play</Button>
-      <Button onClick={handleNext} disabled={currentStep == steps.length}>
-        Next
-      </Button>
-
-      <List
-        sx={{
-          position: "absolute",
-          top: "5em",
-          bottom: 0,
-          overflowY: "scroll",
-          padding: "0.5em",
-        }}
-      >
-        {steps.map((step, i) => {
-          return (
-            <ListItem disablePadding key={i + step}>
-              <ListItemText
-                sx={{
-                  backgroundColor:
-                    currentStep === i ? blue[500] : "rgba(0,0,0,0)",
-                  color: currentStep === i ? grey[50] : grey[900],
-                }}
-                primary={`${i + 1}.- ${step.from.toUpperCase()} →
-              ${step.to.toUpperCase()}`}
-              />
-            </ListItem>
-          );
-        })}
-      </List>
+      {totalSteps > 0 && (
+        <Stack>
+          <Typography variant="subtitle">
+            {totalStepsWithCommas} steps, Solved in: {time} ms
+          </Typography>
+          <Typography variant="subtitle">Step: {currentStep}</Typography>
+        </Stack>
+      )}
+      <Box>
+        <IconButton onClick={handleStop} aria-label="stop">
+          <StopIcon />
+        </IconButton>
+        <IconButton onClick={handlePlay} aria-label="play">
+          <PlayArrowIcon />
+        </IconButton>
+        <IconButton
+          onClick={handleNext}
+          disabled={currentStep == steps.length}
+          aria-label="next"
+        >
+          <SkipNextIcon />
+        </IconButton>
+      </Box>
+      {renderedSolutionList}
     </Box>
   );
 }
@@ -63,6 +65,8 @@ Solution.propTypes = {
   handleStop: PropTypes.func.isRequired,
   handlePlay: PropTypes.func.isRequired,
   handleNext: PropTypes.func.isRequired,
+  time: PropTypes.number.isRequired,
+  totalSteps: PropTypes.number.isRequired,
 };
 
 export default Solution;

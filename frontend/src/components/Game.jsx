@@ -6,14 +6,14 @@ import Solution from "./Solution";
 import _ from "lodash";
 
 export default function Game() {
-  const simulationRef = React.useRef();
-
   const [game, setGame] = React.useState({
     a: [1, 2, 3, 4, 5],
     b: [],
     c: [],
   });
   const [solution, setSolution] = React.useState("");
+  const [totalSteps, setTotalSteps] = React.useState(0);
+  const [time, setTime] = React.useState(0);
   const [currentStep, setCurrentStep] = React.useState(0);
   //const [playInterval, setPlayInterval] = React.useState(0);
 
@@ -59,11 +59,13 @@ export default function Game() {
       .then((response) => response.json())
       .then((data) => {
         const { steps, time } = { ...data };
-        if (steps > 10000) {
-          alert("to many steps to reproduce");
-          return;
+        if (steps < 10000) {
+          setSolution(data.solution);
+        } else {
+          setSolution("");
         }
-        setSolution(data.solution);
+        setTime(time);
+        setTotalSteps(steps);
         setCurrentStep(0);
       });
   };
@@ -79,6 +81,8 @@ export default function Game() {
           handleStop={handleStop}
           handlePlay={handlePlay}
           handleNext={handleNext}
+          totalSteps={totalSteps}
+          time={time}
         />
         <Simulation
           ref={simulationRef}
