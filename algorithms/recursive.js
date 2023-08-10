@@ -16,8 +16,8 @@ Some patterns seem to arrise between odd and even numbers
 
 */
 function recursive(game, res){
-    steps=0;
-    startTime=Date.now();
+    let steps=0;
+    const startTime=Date.now();
     solver = (a, from, aux, to) => {
         if(a==1){
             res.write(from+to+"|");

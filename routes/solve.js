@@ -1,13 +1,16 @@
 
 const { recursive } = require('../algorithms/recursive');
-
+const { iterative } = require('../algorithms/iterative');
 function solve(req, res) {
-    //console.log(req.body.a.length)
-    console.log();
-    res.setHeader('Content-Type', 'application/json');
+    console.log(req.body.a.length)
+    const optimal=howManySteps(req.body.a.length)
+    console.log(optimal);
+    res.writeHead(200, {
+        'Content-Type': 'application/json',
+    })
     res.write('{"solution":"');
-    const {steps, time} = recursive(req.body, res)
-    res.write('", "steps":'+steps+',"optimal":'+howManySteps(req.body.a.length)+',"time":'+time+'}');
+    const {steps, time} = iterative(req.body, res)
+    res.write('", "steps":'+steps+',"optimal":'+optimal+',"time":'+time+'}')
     res.end();
 }
 
