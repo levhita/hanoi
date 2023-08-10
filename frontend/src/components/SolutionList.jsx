@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { List, ListItem, ListItemText } from "@mui/material/";
 
 function SolutionList({ steps }) {
+  const cappedSteps = steps.slice(0, 1000);
   return (
     <List
       sx={{
@@ -13,7 +14,7 @@ function SolutionList({ steps }) {
         padding: "0.5em",
       }}
     >
-      {steps.map((step, i) => {
+      {cappedSteps.map((step, i) => {
         return (
           <ListItem disablePadding key={i + step}>
             <ListItemText

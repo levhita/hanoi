@@ -59,11 +59,7 @@ export default function Game() {
       .then((response) => response.json())
       .then((data) => {
         const { steps, time } = { ...data };
-        if (steps < 10000) {
-          setSolution(data.solution);
-        } else {
-          setSolution("");
-        }
+        setSolution(data.solution);
         setTime(time);
         setTotalSteps(steps);
         setCurrentStep(0);
@@ -84,12 +80,7 @@ export default function Game() {
           totalSteps={totalSteps}
           time={time}
         />
-        <Simulation
-          ref={simulationRef}
-          game={game}
-          setGame={setGame}
-          handleNewGame={newGame}
-        />
+        <Simulation game={game} setGame={setGame} handleNewGame={newGame} />
       </Stack>
     </>
   );
