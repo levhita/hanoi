@@ -1,10 +1,36 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button, Dialog, DialogTitle, TextField, Stack } from "@mui/material/";
+import {
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogActions,
+  TextField,
+  Stack,
+} from "@mui/material/";
 
 function NewGameDialog(props) {
   const { onCreate, onCancel, open, disks } = props;
   const [newDisks, setNewDisks] = React.useState(disks);
+  const inputRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (open && inputRef.current) {
+        inputRef.current.focus();
+        inputRef.current.select();
+      }
+    }, 0);
+
+    return () => clearTimeout(timeout);
+  }, [open]);
+
+  const keyPress = (e) => {
+    if (e.keyCode == 13) {
+      e.preventDefault();
+      handleCreate();
+    }
+  };
 
   const handleCreate = () => {
     onCreate(parseInt(newDisks));
@@ -26,11 +52,15 @@ function NewGameDialog(props) {
           onChange={(event) => {
             setNewDisks(event.target.value);
           }}
+          inputRef={inputRef}
+          onKeyDown={keyPress}
         />
-        <Button onClick={handleCancel}>Cancel</Button>
-        <Button variant="contained" onClick={handleCreate}>
-          Create
-        </Button>
+        <DialogActions>
+          <Button onClick={handleCancel}>Cancel</Button>
+          <Button variant="contained" onClick={handleCreate}>
+            Create
+          </Button>
+        </DialogActions>
       </Stack>
     </Dialog>
   );
