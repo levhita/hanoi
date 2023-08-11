@@ -16,7 +16,7 @@ export default function Game() {
   const [totalSteps, setTotalSteps] = React.useState(0);
   const [time, setTime] = React.useState(0);
   const [currentStep, setCurrentStep] = React.useState(0);
-  //const [playInterval, setPlayInterval] = React.useState(0);
+  const [isPlaying, setIsPlaying] = React.useState(false);
 
   // For large operations useMemo can cache results
   // will re-run if solution change
@@ -25,16 +25,33 @@ export default function Game() {
   }, [solution]);
 
   const handleStop = () => {
+    setIsPlaying(false);
     setCurrentStep(0);
-    // clearInterval(playInterval);
   };
+
+  const handlePause = () => {
+    setIsPlaying(false);
+  };
+
+  React.useEffect(() => {
+    if (isPlaying) {
+      if (currentStep > steps.length - 1) {
+        setIsPlaying(false);
+        return;
+      }
+      setTimeout(() => {
+        handleNext();
+      }, 250);
+    }
+  }, [currentStep, isPlaying]);
+
   const handlePlay = () => {
-    // clearInterval(playInterval);
-    // setPlayInterval(setInterval(() => handleNext(), 1000));
+    setIsPlaying(true);
   };
+
   const handleNext = () => {
-    setCurrentStep(currentStep + 1);
-    handleStep(steps[currentStep]);
+    setCurrentStep((currentStep) => currentStep + 1);
+    handleMovement(steps[currentStep]);
   };
 
   const newGame = (newDisks) => {
@@ -48,7 +65,7 @@ export default function Game() {
     setCurrentStep(0);
   };
 
-  const handleStep = ({ from, to }) => {
+  const handleMovement = ({ from, to }) => {
     const newGame = _.cloneDeep(game);
     newGame[to].unshift(newGame[from].shift(from));
     setGame(newGame);
@@ -80,12 +97,14 @@ export default function Game() {
         <Solution
           steps={steps}
           currentStep={currentStep}
-          handleStep={handleStep}
+          handleStep={handleMovement}
+          handlePause={handlePause}
           handleStop={handleStop}
           handlePlay={handlePlay}
           handleNext={handleNext}
           totalSteps={totalSteps}
           time={time}
+          isPlaying={isPlaying}
         />
         <Simulation game={game} setGame={setGame} handleNewGame={newGame} />
       </Stack>
