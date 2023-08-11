@@ -26,6 +26,7 @@ export default function Game() {
 
   const handleStop = () => {
     setIsPlaying(false);
+    newGame(disks);
     setCurrentStep(0);
   };
 
@@ -72,7 +73,7 @@ export default function Game() {
   };
 
   const handleSolve = () => {
-    fetch("http://localhost:3000/api/solve", {
+    fetch("/api/solve", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
