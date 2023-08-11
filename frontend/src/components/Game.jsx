@@ -17,6 +17,7 @@ export default function Game() {
   const [time, setTime] = React.useState(0);
   const [currentStep, setCurrentStep] = React.useState(0);
   const [isPlaying, setIsPlaying] = React.useState(false);
+  const [isSolvable, setIsSolvable] = React.useState(false);
 
   // For large operations useMemo can cache results
   // will re-run if solution change
@@ -27,7 +28,6 @@ export default function Game() {
   const handleStop = () => {
     setIsPlaying(false);
     newGame(disks);
-    setCurrentStep(0);
   };
 
   const handlePause = () => {
@@ -53,6 +53,7 @@ export default function Game() {
   const handleNext = () => {
     setCurrentStep((currentStep) => currentStep + 1);
     handleMovement(steps[currentStep]);
+    setIsSolvable(false);
   };
 
   const newGame = (newDisks) => {
@@ -64,6 +65,7 @@ export default function Game() {
     setTime(0);
     setTotalSteps(0);
     setCurrentStep(0);
+    setIsSolvable(true);
   };
 
   const handleMovement = ({ from, to }) => {
@@ -82,18 +84,21 @@ export default function Game() {
     })
       .then((response) => response.json())
       .then((data) => {
-        newGame(disks);
         const { steps, time } = { ...data };
+        newGame(disks);
         setSolution(data.solution);
         setTime(time);
         setTotalSteps(steps);
-        setCurrentStep(0);
       });
   };
 
   return (
     <>
-      <Header newGame={newGame} handleSolve={handleSolve} />
+      <Header
+        newGame={newGame}
+        handleSolve={handleSolve}
+        isSolvable={isSolvable}
+      />
       <Stack direction="row" height="100%">
         <Solution
           steps={steps}

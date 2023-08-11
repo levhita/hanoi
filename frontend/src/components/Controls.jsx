@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Button, Divider } from "@mui/material/";
 import NewGameDialog from "./NewGameDialog";
 
-function Controls({ newGame, handleSolve }) {
+function Controls({ newGame, handleSolve, isSolvable }) {
   const [open, setOpen] = React.useState(false);
   const [disks, setdisks] = React.useState(5);
 
@@ -31,7 +31,7 @@ function Controls({ newGame, handleSolve }) {
         orientation="vertical"
         sx={{ padding: "1em 0em", borderColor: "rgba(255, 255, 255, 0.12)" }}
       />
-      <Button color="inherit" onClick={handleSolve}>
+      <Button color="inherit" onClick={handleSolve} disabled={!isSolvable}>
         Solve
       </Button>
       <NewGameDialog
@@ -47,5 +47,6 @@ function Controls({ newGame, handleSolve }) {
 Controls.propTypes = {
   newGame: PropTypes.func.isRequired,
   handleSolve: PropTypes.func.isRequired,
+  isSolvable: PropTypes.bool.isRequired,
 };
 export default Controls;
